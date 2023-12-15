@@ -9,6 +9,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Log;
 
 class ImagesRelationManager extends RelationManager
 {
@@ -19,8 +20,8 @@ class ImagesRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\FileUpload::make('path')
-                    ->disk('spaces')
-                    ->directory('imggg')
+                    ->disk('s3')
+                    ->directory('fsky_images')
                     ->visibility('public')
             ]);
     }
