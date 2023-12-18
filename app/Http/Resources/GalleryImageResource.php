@@ -12,13 +12,9 @@ class GalleryImageResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray(Request $request)
     {
         // return parent::toArray($request);
-        return [
-            'id' => $this->id,
-            'image' => 'https://fsky.sgp1.cdn.digitaloceanspaces.com/' . $this->path
-        ];
-
+        return 'https://fsky.sgp1.cdn.digitaloceanspaces.com/' . $this->path;
     }
 }

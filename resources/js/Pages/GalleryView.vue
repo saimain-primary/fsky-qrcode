@@ -1,4 +1,6 @@
 <script setup>
+import FsLightbox from "fslightbox-vue/v3";
+
 const props = defineProps(["gallery"]);
 
 console.log(props.gallery);
@@ -11,9 +13,10 @@ console.log(props.gallery);
     >
       Gallery View for {{ props.gallery.title }}
     </h1>
-
-    <div v-for="image in props.gallery.images" :key="image.id">
-      <img :src="image.image" alt="" />
+    <div>
+      <button @click="toggler = !toggler">Open the lightbox.</button>
+      <!-- <FsLightbox :toggler="toggler" :sources="" /> -->
     </div>
+    <div v-for="image in props.gallery.images" :key="image.id"></div>
   </div>
 </template>
