@@ -22,6 +22,20 @@ const openLightBox = (index) => {
   imageIndex.value = index;
   lightBoxVisible.value = !lightBoxVisible.value;
 };
+
+const downloadImage = (url) => {
+  fetch(url, { method: "get", mode: "no-cors", referrerPolicy: "no-referrer" })
+    .then((res) => res.blob())
+    .then((res) => {
+      const aElement = document.createElement("a");
+      aElement.setAttribute("download", props.gallery.title);
+      const href = URL.createObjectURL(res);
+      aElement.href = href;
+      aElement.setAttribute("target", "_blank");
+      aElement.click();
+      URL.revokeObjectURL(href);
+    });
+};
 </script>
 
 <template>
@@ -131,7 +145,7 @@ const openLightBox = (index) => {
                   />
                 </svg>
               </button>
-              <button @click="toolbarMethods.rotateRight">
+              <button @click="downloadImage(images[imageIndex])">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
