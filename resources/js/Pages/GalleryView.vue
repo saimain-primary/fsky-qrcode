@@ -15,7 +15,7 @@ console.log(props.gallery);
     </h1>
     <div>
       <button @click="toggler = !toggler">Open the lightbox.</button>
-      <!-- <FsLightbox :toggler="toggler" :sources="" /> -->
+      <FsLightbox :toggler="toggler" :sources="props.gallery.images" />
     </div>
     <div v-for="image in props.gallery.images" :key="image.id"></div>
   </div>
