@@ -1,6 +1,14 @@
 <script setup>
 const props = defineProps(["gallery"]);
 
+const images = computed(() => {
+  return props.gallery.images.map((img) => {
+    return "https://fsky.sgp1.cdn.digitaloceanspaces.com/" + img;
+  });
+});
+
+console.log(images);
+
 console.log(props.gallery);
 </script>
 
