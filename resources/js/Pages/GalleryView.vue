@@ -1,7 +1,9 @@
 <script setup>
+import { ref } from "vue";
 import FsLightbox from "fslightbox-vue/v3";
 
 const props = defineProps(["gallery"]);
+const toggler = ref(false);
 
 console.log(props.gallery);
 </script>
