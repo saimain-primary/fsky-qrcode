@@ -9,7 +9,9 @@ console.log(props.gallery);
 </script>
 
 <template>
-  <div class="bg-slate-900 flex items-start justify-center p-4 min-h-screen">
+  <div
+    class="bg-slate-900 flex flex-col items-center justify-start p-4 min-h-screen"
+  >
     <h1
       class="text-slate-200 text-5xl font-semibold mb-4 underline decoration-sky-400"
     >
@@ -19,6 +21,8 @@ console.log(props.gallery);
       <button @click="toggler = !toggler">Open the lightbox.</button>
       <FsLightbox :toggler="toggler" :sources="props.gallery.images" />
     </div>
-    <div v-for="image in props.gallery.images" :key="image.id"></div>
+    <div v-for="(image, index) in props.gallery.images" :key="index">
+      <img :src="image" alt="" />
+    </div>
   </div>
 </template>
