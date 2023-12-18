@@ -15,14 +15,17 @@ class ImagesRelationManager extends RelationManager
 {
     protected static string $relationship = 'images';
 
+    protected static ?string $label = 'File';
     public function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\FileUpload::make('path')
+                    ->label('Select Image')
                     ->disk('s3')
-                    ->directory('fsky_images')
                     ->visibility('public')
+                    ->columnSpanFull()
+                    ->required()
             ]);
     }
 
@@ -40,7 +43,6 @@ class ImagesRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

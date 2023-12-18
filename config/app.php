@@ -18,6 +18,7 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'cdn-endpoint' => env('DO_CDN_ENDPOINT', 'http://localhost:8000'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -42,7 +43,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------

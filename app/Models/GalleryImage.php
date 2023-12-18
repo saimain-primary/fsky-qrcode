@@ -15,4 +15,11 @@ class GalleryImage extends Model
     {
         return $this->belongsTo(Gallery::class);
     }
+
+    protected function path(): Attribute
+    {
+        return \Attribute::make(
+            get: fn(string $value) => 'alskdjfal'
+        );
+    }
 }

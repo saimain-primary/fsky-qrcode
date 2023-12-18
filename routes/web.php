@@ -1,18 +1,18 @@
 <?php
 
+use App\Models\Gallery;
+use Inertia\Inertia;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Home', [
+        'laravel' => \Illuminate\Foundation\Application::VERSION,
+        'php' => PHP_VERSION,
+    ]);
+});
+
+Route::get('/galleries/qr-scan/{slug}', function (Request $request, $slug) {
+    $gallery = Gallery::where('slug', $slug)->with('images')->first();
+    return Inertia::render('GalleryView', ['gallery' => $gallery]);
 });
