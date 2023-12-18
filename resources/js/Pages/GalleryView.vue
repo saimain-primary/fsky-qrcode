@@ -12,8 +12,8 @@ console.log(props.gallery);
       Gallery View for {{ props.gallery.title }}
     </h1>
 
-    <div>
-      <img src="" alt="" />
+    <div v-for="image in props.gallery.images" :key="image.id">
+      <img :src="image.image" alt="" />
     </div>
   </div>
 </template>
