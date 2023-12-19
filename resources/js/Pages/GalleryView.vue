@@ -5,16 +5,7 @@ import VueEasyLightbox from "vue-easy-lightbox";
 const props = defineProps(["gallery"]);
 const lightBoxVisible = ref(false);
 const imageIndex = ref(0);
-const images = ref([
-  "https://dummyimage.com/600x100/fff/000",
-  "https://dummyimage.com/600x200/fff/000",
-  "https://dummyimage.com/600x300/fff/000",
-  "https://dummyimage.com/600x400/fff/000",
-  "https://dummyimage.com/600x500/fff/000",
-  "https://dummyimage.com/600x600/fff/000",
-  "https://dummyimage.com/600x700/fff/000",
-  "https://dummyimage.com/600x800/fff/000",
-]);
+const images = ref(props.gallery.images);
 
 const onHide = () => (lightBoxVisible.value = false);
 
@@ -23,18 +14,68 @@ const openLightBox = (index) => {
   lightBoxVisible.value = !lightBoxVisible.value;
 };
 
-const downloadImage = (url) => {
-  fetch(url, { method: "get", mode: "no-cors", referrerPolicy: "no-referrer" })
-    .then((res) => res.blob())
-    .then((res) => {
-      const aElement = document.createElement("a");
-      aElement.setAttribute("download", props.gallery.title);
-      const href = URL.createObjectURL(res);
-      aElement.href = href;
-      aElement.setAttribute("target", "_blank");
-      aElement.click();
-      URL.revokeObjectURL(href);
-    });
+const downloadImage = async (url) => {
+  const response = await fetch(url);
+  console.log("Response: ", response);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.blob();
+  console.log("Blob size: ", data.size);
+
+  if (data.size === 0) {
+    throw new Error(
+      "Blob is empty. The file might not have been fetched correctly."
+    );
+  }
+
+  // Create a new object URL for the file
+  const fileUrl = window.URL.createObjectURL(data);
+
+  // Get MIME type from the response
+  const mimeType = data.type;
+  let extension = "";
+
+  // Determine the file extension based on the MIME type
+  switch (mimeType) {
+    case "application/pdf":
+      extension = ".pdf";
+      break;
+    case "image/jpeg":
+      extension = ".jpg";
+      break;
+    case "image/png":
+      extension = ".png";
+      break;
+    case "text/plain":
+      extension = ".txt";
+      break;
+    // Add more cases as needed
+    default:
+      extension = "";
+      break;
+  }
+
+  // Generate a random number and get the current time
+  const randomNumber = Math.floor(Math.random() * 10000); // Random number between 0 and 9999
+  const timestamp = Date.now(); // Current time in milliseconds
+
+  // Create a filename with random number, timestamp, and file index
+  const filename = `${props.gallery.title}_${timestamp}_${extension}`;
+
+  // Create a temporary anchor element and trigger the download
+  const a = document.createElement("a");
+  a.href = fileUrl;
+  a.download = filename;
+  `downloaded_file_${images.value[imageIndex.value]}`; // Set the file name with index
+  document.body.appendChild(a);
+  a.click();
+
+  // Clean up by removing the element and revoking the object URL
+  document.body.removeChild(a);
+  window.URL.revokeObjectURL(fileUrl);
 };
 </script>
 
