@@ -1,11 +1,52 @@
 <script setup>
 import { ref } from "vue";
-import FsLightbox from "fslightbox-vue/v3";
 import VueEasyLightbox from "vue-easy-lightbox";
 const props = defineProps(["gallery"]);
 const lightBoxVisible = ref(false);
 const imageIndex = ref(0);
 const images = ref(props.gallery.images);
+// const images = ref([
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+//   "https://dummyimage.com/600x400/fff/000",
+// ]);
 
 const onHide = () => (lightBoxVisible.value = false);
 
@@ -59,7 +100,6 @@ const downloadImage = async (url) => {
   }
 
   // Generate a random number and get the current time
-  const randomNumber = Math.floor(Math.random() * 10000); // Random number between 0 and 9999
   const timestamp = Date.now(); // Current time in milliseconds
 
   // Create a filename with random number, timestamp, and file index
@@ -81,23 +121,20 @@ const downloadImage = async (url) => {
 
 <template>
   <div
-    class="flex flex-col items-center justify-start min-h-screen p-4 bg-slate-900"
+    class="container min-h-screen px-8 py-10 mx-auto text-white bg-no-repeat bg-cover"
+    style="background-image: url('/assets/images/bg.jpg')"
   >
-    <h1
-      class="mb-4 text-5xl font-semibold underline text-slate-200 decoration-sky-400"
-    >
-      Gallery View for {{ props.gallery.title }}
-    </h1>
-    <!-- <div>
-      <button @click="toggler = !toggler">Open the lightbox.</button>
-      <FsLightbox :toggler="toggler" :sources="props.gallery.images" />
-    </div> -->
-    <!-- <div v-for="(image, index) in props.gallery.images" :key="index">
-      <img :src="image" alt="" />
-    </div> -->
-    <div
-      class="relative flex flex-col justify-center min-h-screen py-6 sm:py-12"
-    >
+    <div class="flex flex-col items-center justify-center mb-8">
+      <div class="mb-10 text-center">
+        <h3 class="mb-5 text-xl font-bold tracking-wider uppercase">
+          F-SKY FILM
+        </h3>
+        <p class="text-xs">Capture, View, and Cherish Your Moments Instantly</p>
+      </div>
+      <p class="text-sm">{{ props.gallery.title }}</p>
+    </div>
+
+    <div class="relative flex flex-col justify-center py-4 sm:py-12">
       <div
         class="columns-2 md:columns-3 lg:columns-4 2xl:columns-6 gap-5 [column-fill:_balance] box-border mx-auto before:box-inherit after:box-inherit"
       >
@@ -106,7 +143,11 @@ const downloadImage = async (url) => {
           v-for="(image, index) in images"
           :key="index"
         >
-          <img @click="openLightBox(index)" :src="image" />
+          <img
+            class="rounded-sm shadow-sm"
+            @click="openLightBox(index)"
+            :src="image"
+          />
         </div>
       </div>
       <vue-easy-lightbox
